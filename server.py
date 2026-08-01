@@ -103,6 +103,8 @@ class PowerForecastServerHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(res, indent=2).encode('utf-8'))
 
+handler = PowerForecastServerHandler
+
 def main():
     port = PORT
     if len(sys.argv) > 1:
