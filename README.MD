@@ -1,87 +1,80 @@
 # PowerForecast ⚡
 
-PowerForecast is a consumer-focused utility designed to estimate, monitor, and forecast household electricity costs. It integrates dynamic **Meralco kWh rate parsing** and detailed component breakdowns to help consumers understand their electricity bills and make informed budgeting decisions.
-
-The project consists of two main parts:
-1. **Interactive Web Calculator**: A web-based application (ready for GitHub Pages) to estimate bill details in real-time.
-2. **Discord Bot**: An interactive bot bringing rates, appliance cost estimation, and bill calculations directly to Discord.
+**PowerForecast** is a high-precision Philippine Meralco Electricity Rates API and Interactive Web Calculator. It parses official Meralco PDF rate bulletins to provide real-time, itemized breakdowns of monthly electricity bills—including Generation, Transmission, System Loss, Distribution tiers, Subsidies, VAT, and local franchise taxes.
 
 ---
 
-## 🚀 Interactive Web Calculator
+## ✨ Features
 
-The calculator provides a real-time, dynamic breakdown of your Meralco electricity bill, including Generation, Transmission, System Loss, Distribution tiers, VAT, government taxes, and subsidies.
-
-### Live Demo
-👉 **[View the Web Calculator on GitHub Pages](https://RandomUs3rInTh3Int3rn3t.github.io/PowerForecast/)**
-
-### Features
-* **Dynamic Cost Share:** Stacked bar visualization of your bill component breakdown.
-* **Tuning Controls:** Side panel to adjust component multipliers (Transmission, System Loss, VAT, etc.) in real-time.
-* **Automatic Bracket Rate Retrieval:** Automatically fetches latest residential rates from `rates.json`.
-* **Zero-based Baseline:** Displays `₱0.00` at default/zero consumption.
+- ⚡ **Dynamic Meralco Rate Parser**: Automatically fetches and extracts effective rates and Base Generation Charges from official Meralco PDF bulletins.
+- 🌐 **Vercel Serverless API**: Ready for Vercel deployment with CORS-enabled endpoints (`/api/rates`, `/api/appliances`, `/api/calculate`).
+- 📊 **Interactive Web Calculator**: Modern glassmorphic front-end displaying itemized bill breakdowns, stacked cost distribution bars, and consumption sliders.
+- 🧪 **Interactive API Playground**: Includes a live documentation page (`docs.html`) with executable code snippets in **JavaScript**, **cURL**, and **Python**.
+- 🐍 **Standalone Python Backend**: Ships with a functional Python server (`server.py`) for local execution and development.
 
 ---
 
-## 🤖 Discord Bot
+## 🚀 Quick Start (Local Development)
 
-The Discord bot provides slash commands for rates checking, appliance wattage database queries, and bill calculations.
-
-### Commands
-* `/ask <question>`: Chat with **PowerForecast AI** about Meralco rates, appliance power usage, or energy saving tips (or mention `@PowerForecast`).
-* `/rates`: View the latest Meralco residential rates per consumption bracket.
-* `/bracket <kwh>`: Save your typical monthly consumption bracket to personalize calculations.
-* `/calculate <appliance_or_wattage> <hours_per_day> [days]`: Estimate the cost of running a specific appliance.
-* `/appliances`: View average wattages for typical Philippine household appliances.
-* `/wattage <query>`: Search average wattage and ranges for a specific appliance.
-* `/total_bill <kwh> [generation_rate] [other_charges]`: Calculate a fully itemized monthly bill estimate.
-* `/generation_charge <kwh>`: Estimate base generation charge.
-* `/update_rates`: Force check and update the Meralco rate PDF cache.
-
-
-### Installation & Setup
-
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/RandomUs3rInTh3Int3rn3t/PowerForecast.git
-   cd PowerForecast
-   ```
-
-2. **Install Dependencies:**
-   Ensure you have Python 3.8+ installed. Install the required libraries:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Configure Environment Variables:**
-   Create a `.env` file in the root directory:
-   ```env
-   DISCORD_BOT_TOKEN=your_discord_bot_token_here
-   ALLOWED_CHANNEL_ID=your_allowed_discord_channel_id_here
-   ```
-
-4. **Run the Bot:**
-   ```bash
-   python bot.py
-   ```
-
----
-
-## 🚀 Deploying to Vercel
-
-The project is structured to deploy seamlessly to **Vercel** with static web hosting and serverless Python API endpoints.
-
-### Quick Deploy via Vercel CLI
+### 1. Clone the Repository
 ```bash
-npm i -g vercel
+git clone https://github.com/HevOhem444/Powerforecast_meralco_api.git
+cd Powerforecast_meralco_api
+```
+
+### 2. Install Dependencies
+Ensure Python 3.9+ is installed:
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Start the PowerForecast Server
+Run the unified Python web & API server:
+```bash
+python server.py 8000
+```
+
+Access locally at:
+- **Web Calculator**: [http://localhost:8000](http://localhost:8000)
+- **API Documentation & Playground**: [http://localhost:8000/docs.html](http://localhost:8000/docs.html)
+
+---
+
+## ☁️ Deploying to Vercel
+
+PowerForecast is pre-configured for instant Vercel deployment with Serverless Functions (`vercel.json`).
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy to Vercel
 vercel --prod
 ```
 
-### Serverless API Routes
-* `GET /api/rates` — Latest parsed Meralco rate schedule & trend metadata.
-* `GET /api/appliances` — Appliance wattage standards and operational ranges.
-* `POST /api/calculate` — Accepts `{ kwh, generation_rate, other_charges }` and returns itemized bill breakdown.
-* `GET /docs` — Interactive API Documentation & Testing Playground.
+---
+
+## 📡 API Endpoints
+
+All endpoints support CORS (`Access-Control-Allow-Origin: *`).
+
+### 1. `GET /api/rates`
+Returns the latest parsed rate schedule per consumption bracket (kWh).
+
+### 2. `GET /api/appliances`
+Returns average wattage metrics and operational ranges for common Philippine household appliances.
+
+### 3. `POST /api/calculate`
+Calculates a fully itemized Meralco bill.
+
+#### Request Body:
+```json
+{
+  "kwh": 300,
+  "generation_rate": 9.2504,
+  "other_charges": 0.00
+}
+```
 
 ---
 
@@ -90,13 +83,12 @@ vercel --prod
 * `index.html` — Interactive Web Calculator front-end.
 * `docs.html` — Interactive API Documentation & Testing Playground.
 * `API.md` — Technical API documentation and JSON schemas.
-* `vercel.json` — Vercel routing rules & CORS configuration.
-* `api/` — Serverless Python API endpoints (`rates.py`, `appliances.py`, `calculate.py`).
-* `bot.py` — Discord Bot script.
-* `meralco_parser.py` — Backend utility that parses official Meralco rates from bulletins.
-* `rates.json` — Local cache containing the latest parsed rate components.
-* `appliance_db.json` — Database of typical Philippine household appliances and wattages.
-* `requirements.txt` — Python dependencies.
+* `vercel.json` — Vercel deployment, rewrites, and CORS headers.
+* `server.py` — Functional Python web and API server.
+* `meralco_parser.py` — Meralco PDF rate parsing engine.
+* `rates.json` — Local cache of latest parsed rate components.
+* `appliance_db.json` — Philippine appliance wattage database.
+* `api/` — Serverless Python functions (`rates.py`, `appliances.py`, `calculate.py`).
 
 ---
 
