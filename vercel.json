@@ -2,6 +2,13 @@
   "version": 2,
   "name": "powerforecast-api",
   "cleanUrls": true,
+  "builds": [
+    { "src": "api/rates.py", "use": "@vercel/python" },
+    { "src": "api/appliances.py", "use": "@vercel/python" },
+    { "src": "api/calculate.py", "use": "@vercel/python" },
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "*.json", "use": "@vercel/static" }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
@@ -12,5 +19,12 @@
         { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
       ]
     }
+  ],
+  "routes": [
+    { "src": "/docs", "dest": "/docs.html" },
+    { "src": "/api/rates", "dest": "/api/rates.py" },
+    { "src": "/api/appliances", "dest": "/api/appliances.py" },
+    { "src": "/api/calculate", "dest": "/api/calculate.py" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
