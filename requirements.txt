@@ -1,0 +1,8 @@
+discord.py==2.3.2
+pdfplumber==0.10.3
+requests==2.31.0
+python-dotenv==1.0.0
+python-dateutil==2.8.2
+audioop-lts==0.2.1
+google-generativeai==0.8.3
+

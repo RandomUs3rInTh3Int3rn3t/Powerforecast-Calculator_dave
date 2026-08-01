@@ -1,0 +1,200 @@
+{
+  "appliances": [
+    {
+      "name": "Air Conditioner (0.5 HP, Non-Inverter)",
+      "category": "Cooling",
+      "average_wattage": 550,
+      "wattage_range": "500W - 600W",
+      "description": "Small window-type AC for small rooms. High consumption if used long hours."
+    },
+    {
+      "name": "Air Conditioner (0.5 HP, Inverter)",
+      "category": "Cooling",
+      "average_wattage": 380,
+      "wattage_range": "300W - 450W",
+      "description": "Energy-efficient window AC for small rooms."
+    },
+    {
+      "name": "Air Conditioner (1.0 HP, Non-Inverter)",
+      "category": "Cooling",
+      "average_wattage": 980,
+      "wattage_range": "900W - 1100W",
+      "description": "Standard window AC for medium rooms."
+    },
+    {
+      "name": "Air Conditioner (1.0 HP, Inverter)",
+      "category": "Cooling",
+      "average_wattage": 680,
+      "wattage_range": "500W - 800W",
+      "description": "Inverter split/window AC for medium rooms. Highly energy efficient."
+    },
+    {
+      "name": "Air Conditioner (1.5 HP, Non-Inverter)",
+      "category": "Cooling",
+      "average_wattage": 1420,
+      "wattage_range": "1300W - 1600W",
+      "description": "Standard split or window AC for large rooms."
+    },
+    {
+      "name": "Air Conditioner (1.5 HP, Inverter)",
+      "category": "Cooling",
+      "average_wattage": 950,
+      "wattage_range": "700W - 1200W",
+      "description": "Inverter split/window AC for large rooms. Consumes less once target temp is hit."
+    },
+    {
+      "name": "Air Conditioner (2.0 HP, Inverter)",
+      "category": "Cooling",
+      "average_wattage": 1400,
+      "wattage_range": "1100W - 1800W",
+      "description": "Large split-type inverter AC for living rooms or large bedrooms."
+    },
+    {
+      "name": "Refrigerator (Two-Door, Non-Inverter, 7-10 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 150,
+      "wattage_range": "130W - 180W",
+      "description": "Standard household refrigerator. Runs periodically (compressor duty cycle approx. 50%)."
+    },
+    {
+      "name": "Refrigerator (Two-Door, Inverter, 7-10 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 90,
+      "wattage_range": "70W - 120W",
+      "description": "Inverter refrigerator. Compressor runs continuously at lower speeds, saving energy."
+    },
+    {
+      "name": "Refrigerator (Single Door, Small, 5-6 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 100,
+      "wattage_range": "80W - 120W",
+      "description": "Standard single-door ref. Compressor cycle varies based on opening frequency."
+    },
+    {
+      "name": "Stand Fan / Desk Fan (16 inch)",
+      "category": "Cooling",
+      "average_wattage": 55,
+      "wattage_range": "50W - 75W",
+      "description": "Common household electric fan. Very low consumption."
+    },
+    {
+      "name": "Ceiling Fan",
+      "category": "Cooling",
+      "average_wattage": 75,
+      "wattage_range": "60W - 100W",
+      "description": "Standard ceiling fan on medium-high speed."
+    },
+    {
+      "name": "LED TV (32 inch)",
+      "category": "Entertainment",
+      "average_wattage": 45,
+      "wattage_range": "35W - 60W",
+      "description": "Standard LED television."
+    },
+    {
+      "name": "LED Smart TV (50-55 inch)",
+      "category": "Entertainment",
+      "average_wattage": 110,
+      "wattage_range": "90W - 150W",
+      "description": "Large smart TV screen with 4K resolution."
+    },
+    {
+      "name": "Gaming PC (Desktop)",
+      "category": "Computers",
+      "average_wattage": 350,
+      "wattage_range": "200W - 600W",
+      "description": "Desktop computer with dedicated graphics card. Wattage depends on CPU/GPU load."
+    },
+    {
+      "name": "Laptop (Standard Office/Student)",
+      "category": "Computers",
+      "average_wattage": 45,
+      "wattage_range": "30W - 65W",
+      "description": "Standard thin-and-light laptop for productivity or online classes."
+    },
+    {
+      "name": "Washing Machine (Single Tub, Standard)",
+      "category": "Laundry",
+      "average_wattage": 250,
+      "wattage_range": "200W - 350W",
+      "description": "Simple top-load washing machine without spin dryer."
+    },
+    {
+      "name": "Washing Machine (Twin Tub, with Spinner)",
+      "category": "Laundry",
+      "average_wattage": 400,
+      "wattage_range": "300W - 500W",
+      "description": "Washing tub + spin dryer running together."
+    },
+    {
+      "name": "Washing Machine (Front Load, Automatic)",
+      "category": "Laundry",
+      "average_wattage": 800,
+      "wattage_range": "500W - 2000W",
+      "description": "Automatic washing machine. Higher wattage if water heater is active."
+    },
+    {
+      "name": "Flat Iron",
+      "category": "Laundry",
+      "average_wattage": 1000,
+      "wattage_range": "900W - 1200W",
+      "description": "Standard clothing iron. High wattage, but typically used for short intervals."
+    },
+    {
+      "name": "Rice Cooker (Standard, 1.8 Liters)",
+      "category": "Kitchen",
+      "average_wattage": 700,
+      "wattage_range": "600W - 800W",
+      "description": "Consumes 700W when cooking, drops to 50W - 80W in 'Keep Warm' mode."
+    },
+    {
+      "name": "Microwave Oven",
+      "category": "Kitchen",
+      "average_wattage": 1200,
+      "wattage_range": "1000W - 1500W",
+      "description": "High power draw, but usually runs for only a few minutes per use."
+    },
+    {
+      "name": "Induction Cooker",
+      "category": "Kitchen",
+      "average_wattage": 1500,
+      "wattage_range": "1000W - 2000W",
+      "description": "Single-burner induction stove. Consumption varies by power level setting."
+    },
+    {
+      "name": "Electric Kettle",
+      "category": "Kitchen",
+      "average_wattage": 1500,
+      "wattage_range": "1200W - 2000W",
+      "description": "Very high power, but only runs for 3-5 minutes to boil water."
+    },
+    {
+      "name": "Water Dispenser (Hot and Cold)",
+      "category": "Kitchen",
+      "average_wattage": 550,
+      "wattage_range": "400W - 600W",
+      "description": "Dispenser that heats and cools water periodically. High monthly consumption if left on 24/7."
+    },
+    {
+      "name": "LED Bulb",
+      "category": "Lighting",
+      "average_wattage": 9,
+      "wattage_range": "5W - 15W",
+      "description": "Energy-efficient home lighting bulb."
+    },
+    {
+      "name": "Fluorescent Tube (T8, 36W)",
+      "category": "Lighting",
+      "average_wattage": 45,
+      "wattage_range": "40W - 50W",
+      "description": "Older long tube light. Ballast adds around 9W of consumption."
+    },
+    {
+      "name": "Phone / Tablet Charger",
+      "category": "Gadgets",
+      "average_wattage": 15,
+      "wattage_range": "5W - 65W",
+      "description": "Fast charger or standard mobile device charger."
+    }
+  ]
+}

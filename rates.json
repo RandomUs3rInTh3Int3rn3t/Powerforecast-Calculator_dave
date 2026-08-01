@@ -1,0 +1,132 @@
+{
+  "success": true,
+  "error": null,
+  "warning": null,
+  "date": null,
+  "data": [
+    {
+      "kwh": 50,
+      "rate": 15.1869,
+      "generation_rate": 9.2504,
+      "rate_change": 0.343,
+      "rate_change_percent": 2.31,
+      "trend": "up"
+    },
+    {
+      "kwh": 70,
+      "rate": 15.0494,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3428,
+      "rate_change_percent": 2.33,
+      "trend": "up"
+    },
+    {
+      "kwh": 100,
+      "rate": 14.9464,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.35,
+      "trend": "up"
+    },
+    {
+      "kwh": 200,
+      "rate": 14.8261,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3428,
+      "rate_change_percent": 2.37,
+      "trend": "up"
+    },
+    {
+      "kwh": 300,
+      "rate": 15.1354,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.32,
+      "trend": "up"
+    },
+    {
+      "kwh": 400,
+      "rate": 15.445,
+      "generation_rate": 9.2504,
+      "rate_change": 0.343,
+      "rate_change_percent": 2.27,
+      "trend": "up"
+    },
+    {
+      "kwh": 500,
+      "rate": 16.0071,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.19,
+      "trend": "up"
+    },
+    {
+      "kwh": 600,
+      "rate": 15.999,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.19,
+      "trend": "up"
+    },
+    {
+      "kwh": 700,
+      "rate": 16.0004,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.19,
+      "trend": "up"
+    },
+    {
+      "kwh": 800,
+      "rate": 16.0079,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.19,
+      "trend": "up"
+    },
+    {
+      "kwh": 900,
+      "rate": 16.0135,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.19,
+      "trend": "up"
+    },
+    {
+      "kwh": 1000,
+      "rate": 16.018,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.19,
+      "trend": "up"
+    },
+    {
+      "kwh": 1500,
+      "rate": 16.0649,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.18,
+      "trend": "up"
+    },
+    {
+      "kwh": 3000,
+      "rate": 16.187,
+      "generation_rate": 9.2504,
+      "rate_change": 0.3429,
+      "rate_change_percent": 2.16,
+      "trend": "up"
+    },
+    {
+      "kwh": 5000,
+      "rate": 16.2358,
+      "generation_rate": 9.2504,
+      "rate_change": 0.343,
+      "rate_change_percent": 2.16,
+      "trend": "up"
+    }
+  ],
+  "meta": {
+    "timestamp": "2026-07-28T15:17:58.430118",
+    "source": "https://meralcomain.s3.ap-southeast-1.amazonaws.com/2026-07/07-2026_residential_bills.pdf"
+  }
+}

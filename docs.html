@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerForecast API Documentation & Playground</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Outfit) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        meralco: {
+                            500: '#fc8803',
+                            600: '#ea580c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-full flex flex-col justify-between selection:bg-meralco-500 selection:text-white">
+
+    <!-- Ambient Glow Background -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[350px] bg-gradient-to-b from-meralco-500/10 to-transparent blur-[120px] pointer-events-none -z-10"></div>
+
+    <header class="max-w-6xl mx-auto w-full px-4 pt-8 pb-4 flex justify-between items-center border-b border-slate-900/80">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="p-2.5 bg-meralco-500/10 rounded-xl border border-meralco-500/30 text-meralco-500 hover:bg-meralco-500/20 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                </svg>
+            </a>
+            <div>
+                <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">PowerForecast API Docs</h1>
+                <p class="text-xs text-slate-500">Meralco Electricity Rates & Calculation Endpoints</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="px-4 py-2 bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white rounded-xl text-xs font-semibold transition-all">
+                ← Web Calculator
+            </a>
+            <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full text-xs font-medium flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> CORS Enabled
+            </span>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto w-full px-4 py-8 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Navigation Sidebar -->
+        <aside class="lg:col-span-3 flex flex-col gap-2">
+            <div class="glass p-4 rounded-2xl sticky top-8 flex flex-col gap-1 text-sm font-medium">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider px-3 py-1">API Endpoints</span>
+                <a href="#endpoint-rates" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all flex items-center justify-between">
+                    <span>GET /api/rates</span>
+                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">GET</span>
+                </a>
+                <a href="#endpoint-appliances" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all flex items-center justify-between">
+                    <span>GET /api/appliances</span>
+                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">GET</span>
+                </a>
+                <a href="#endpoint-calculate" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all flex items-center justify-between">
+                    <span>POST /api/calculate</span>
+                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400">POST</span>
+                </a>
+                <a href="#playground" class="px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800/60 hover:text-white transition-all mt-4 border-t border-slate-800 pt-3 flex items-center gap-2">
+                    <span>⚡ Live Playground</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Documentation Content -->
+        <section class="lg:col-span-9 flex flex-col gap-8">
+
+            <!-- Intro Header -->
+            <div class="glass p-6 rounded-2xl flex flex-col gap-3">
+                <h2 class="text-2xl font-bold text-white">Public Meralco Rate & Calculation API</h2>
+                <p class="text-sm text-slate-400 leading-relaxed">
+                    The PowerForecast API allows developers to fetch parsed Meralco rate schedules, query common household appliance wattage metrics, and perform precise, itemized bill calculations. Hosted on Vercel Serverless Functions with CORS enabled.
+                </p>
+                <div class="flex items-center gap-2 mt-2 bg-slate-900/90 border border-slate-800 px-4 py-2.5 rounded-xl text-xs font-mono text-slate-300">
+                    <span class="text-slate-500">Base URL:</span>
+                    <span id="baseUrlDisplay" class="text-meralco-500 font-semibold">https://powerforecast-api.vercel.app</span>
+                </div>
+            </div>
+
+            <!-- Endpoint 1: GET /api/rates -->
+            <div id="endpoint-rates" class="glass p-6 rounded-2xl flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-md">GET</span>
+                    <h3 class="text-lg font-bold text-white font-mono">/api/rates</h3>
+                </div>
+                <p class="text-xs text-slate-400">Retrieves the latest parsed Meralco residential rate brackets, generation charges, and rate trends.</p>
+
+                <!-- Code Examples Tabs -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <div class="bg-slate-950 px-4 py-2 flex gap-4 text-xs font-medium border-b border-slate-800 text-slate-400">
+                        <button onclick="switchTab('rates', 'js')" id="tab-rates-js" class="text-meralco-500 font-bold hover:text-white transition-all">JavaScript</button>
+                        <button onclick="switchTab('rates', 'curl')" id="tab-rates-curl" class="hover:text-white transition-all">cURL</button>
+                        <button onclick="switchTab('rates', 'py')" id="tab-rates-py" class="hover:text-white transition-all">Python</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto"><code id="code-rates">fetch('https://billshock-api.vercel.app/api/rates')
+  .then(res => res.json())
+  .then(data => console.log(data));</code></pre>
+                </div>
+            </div>
+
+            <!-- Endpoint 2: GET /api/appliances -->
+            <div id="endpoint-appliances" class="glass p-6 rounded-2xl flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-bold rounded-md">GET</span>
+                    <h3 class="text-lg font-bold text-white font-mono">/api/appliances</h3>
+                </div>
+                <p class="text-xs text-slate-400">Returns typical Philippine household appliance wattage standards, operational ranges, and default daily usage hours.</p>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <div class="bg-slate-950 px-4 py-2 flex gap-4 text-xs font-medium border-b border-slate-800 text-slate-400">
+                        <button onclick="switchTab('appliances', 'js')" id="tab-appliances-js" class="text-meralco-500 font-bold hover:text-white transition-all">JavaScript</button>
+                        <button onclick="switchTab('appliances', 'curl')" id="tab-appliances-curl" class="hover:text-white transition-all">cURL</button>
+                        <button onclick="switchTab('appliances', 'py')" id="tab-appliances-py" class="hover:text-white transition-all">Python</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto"><code id="code-appliances">fetch('https://billshock-api.vercel.app/api/appliances')
+  .then(res => res.json())
+  .then(data => console.log(data));</code></pre>
+                </div>
+            </div>
+
+            <!-- Endpoint 3: POST /api/calculate -->
+            <div id="endpoint-calculate" class="glass p-6 rounded-2xl flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="px-2.5 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded-md">POST / GET</span>
+                    <h3 class="text-lg font-bold text-white font-mono">/api/calculate</h3>
+                </div>
+                <p class="text-xs text-slate-400">Calculates a fully itemized Meralco bill based on consumption metrics.</p>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <div class="bg-slate-950 px-4 py-2 flex gap-4 text-xs font-medium border-b border-slate-800 text-slate-400">
+                        <button onclick="switchTab('calculate', 'js')" id="tab-calculate-js" class="text-meralco-500 font-bold hover:text-white transition-all">JavaScript</button>
+                        <button onclick="switchTab('calculate', 'curl')" id="tab-calculate-curl" class="hover:text-white transition-all">cURL</button>
+                        <button onclick="switchTab('calculate', 'py')" id="tab-calculate-py" class="hover:text-white transition-all">Python</button>
+                    </div>
+                    <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto"><code id="code-calculate">fetch('https://billshock-api.vercel.app/api/calculate', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    kwh: 300,
+    generation_rate: 9.2504,
+    other_charges: 0.00
+  })
+})
+  .then(res => res.json())
+  .then(data => console.log(data));</code></pre>
+                </div>
+            </div>
+
+            <!-- Live Playground -->
+            <div id="playground" class="glass p-6 rounded-2xl flex flex-col gap-4 border border-meralco-500/30">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <span>⚡ Interactive API Playground</span>
+                    </h3>
+                    <span class="text-xs text-slate-400">Test live requests</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <div>
+                        <label class="text-xs font-semibold text-slate-300">Consumption (kWh)</label>
+                        <input type="number" id="playKwh" value="200" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white mt-1 outline-none focus:border-meralco-500">
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-300">Gen Rate (PHP/kWh)</label>
+                        <input type="number" id="playGenRate" value="9.2504" step="0.0001" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white mt-1 outline-none focus:border-meralco-500">
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-slate-300">Other Charges (PHP)</label>
+                        <input type="number" id="playOther" value="0.00" step="0.01" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white mt-1 outline-none focus:border-meralco-500">
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button onclick="runPlaygroundTest('/api/rates')" class="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs font-semibold text-slate-200">Test GET /api/rates</button>
+                    <button onclick="runPlaygroundTest('/api/appliances')" class="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs font-semibold text-slate-200">Test GET /api/appliances</button>
+                    <button onclick="runPlaygroundCalculate()" class="py-2.5 px-4 bg-meralco-500 hover:bg-meralco-600 text-white rounded-xl text-xs font-semibold">Test POST /api/calculate</button>
+                </div>
+
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4">
+                    <div class="flex justify-between text-xs text-slate-500 font-mono mb-2">
+                        <span>Response Output</span>
+                        <span id="playStatus">Status: Ready</span>
+                    </div>
+                    <pre id="playOutput" class="text-xs font-mono text-emerald-400 overflow-x-auto max-h-60"><code>// Click a button above to run a test request...</code></pre>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="max-w-6xl mx-auto w-full px-4 py-8 border-t border-slate-900 text-center text-xs text-slate-600">
+        PowerForecast API Documentation &bull; Vercel Serverless Ready
+    </footer>
+
+    <script>
+        // Update Base URL display dynamically
+        const baseUrl = window.location.origin;
+        document.getElementById('baseUrlDisplay').textContent = baseUrl;
+
+        const CODE_EXAMPLES = {
+            rates: {
+                js: `fetch('${baseUrl}/api/rates')\n  .then(res => res.json())\n  .then(data => console.log(data));`,
+                curl: `curl -X GET ${baseUrl}/api/rates`,
+                py: `import requests\n\nresponse = requests.get('${baseUrl}/api/rates')\nrates_data = response.json()\nprint("Latest Meralco Rates:", rates_data)`
+            },
+            appliances: {
+                js: `fetch('${baseUrl}/api/appliances')\n  .then(res => res.json())\n  .then(data => console.log(data));`,
+                curl: `curl -X GET ${baseUrl}/api/appliances`,
+                py: `import requests\n\nresponse = requests.get('${baseUrl}/api/appliances')\nappliances_db = response.json()\nprint("Appliance Database:", appliances_db)`
+            },
+            calculate: {
+                js: `fetch('${baseUrl}/api/calculate', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify({\n    kwh: 300,\n    generation_rate: 9.2504,\n    other_charges: 0.00\n  })\n})\n  .then(res => res.json())\n  .then(data => console.log(data));`,
+                curl: `curl -X POST ${baseUrl}/api/calculate \\\n  -H "Content-Type: application/json" \\\n  -d '{"kwh": 300, "generation_rate": 9.2504, "other_charges": 0.00}'`,
+                py: `import requests\n\npayload = {\n    "kwh": 300,\n    "generation_rate": 9.2504,\n    "other_charges": 0.00\n}\n\nresponse = requests.post('${baseUrl}/api/calculate', json=payload)\nbill_breakdown = response.json()\nprint("Total Bill Estimate:", bill_breakdown['summary']['total_bill'])\nprint("Itemized Breakdown:", bill_breakdown['itemized'])`
+            }
+        };
+
+        function switchTab(endpoint, lang) {
+            ['js', 'curl', 'py'].forEach(l => {
+                const btn = document.getElementById(`tab-${endpoint}-${l}`);
+                if (btn) {
+                    if (l === lang) {
+                        btn.className = 'text-meralco-500 font-bold hover:text-white transition-all';
+                    } else {
+                        btn.className = 'hover:text-white transition-all text-slate-400';
+                    }
+                }
+            });
+
+            const codeElem = document.getElementById(`code-${endpoint}`);
+            if (codeElem && CODE_EXAMPLES[endpoint] && CODE_EXAMPLES[endpoint][lang]) {
+                codeElem.textContent = CODE_EXAMPLES[endpoint][lang];
+            }
+        }
+
+        async function safeFetchJson(url, fallbackUrl, mockDataFn) {
+            try {
+                const res = await fetch(url);
+                if (res.ok) {
+                    const text = await res.text();
+                    const trimmed = text.trim();
+                    if (!trimmed.startsWith('import ') && !trimmed.startsWith('from ') && !trimmed.startsWith('def ') && !trimmed.startsWith('<!DOCTYPE')) {
+                        try {
+                            return { status: res.status, data: JSON.parse(text) };
+                        } catch (e) {
+                            // ignore and try fallback
+                        }
+                    }
+                }
+            } catch (e) {
+                // ignore and try fallback
+            }
+
+            if (fallbackUrl) {
+                try {
+                    const fallbackRes = await fetch(fallbackUrl);
+                    if (fallbackRes.ok) {
+                        const fallbackData = await fallbackRes.json();
+                        return { status: 200, data: fallbackData };
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            }
+
+            if (mockDataFn) {
+                return { status: 200, data: mockDataFn() };
+            }
+
+            throw new Error("Unable to parse endpoint JSON output.");
+        }
+
+        async function runPlaygroundTest(endpoint) {
+            const output = document.getElementById('playOutput');
+            const status = document.getElementById('playStatus');
+            status.textContent = 'Status: Sending request...';
+
+            let fallbackUrl = null;
+            if (endpoint.includes('rates')) fallbackUrl = 'rates.json';
+            if (endpoint.includes('appliances')) fallbackUrl = 'appliance_db.json';
+
+            try {
+                const result = await safeFetchJson(endpoint, fallbackUrl);
+                status.textContent = `Status: ${result.status} OK`;
+                output.textContent = JSON.stringify(result.data, null, 2);
+            } catch (err) {
+                status.textContent = 'Status: Error';
+                output.textContent = JSON.stringify({ error: err.message }, null, 2);
+            }
+        }
+
+        async function runPlaygroundCalculate() {
+            const output = document.getElementById('playOutput');
+            const status = document.getElementById('playStatus');
+            const kwh = parseFloat(document.getElementById('playKwh').value) || 0;
+            const genRate = parseFloat(document.getElementById('playGenRate').value) || 9.2504;
+            const other = parseFloat(document.getElementById('playOther').value) || 0;
+
+            status.textContent = 'Status: Calculating...';
+
+            const calculateLocal = () => {
+                const genCost = Math.round(kwh * genRate * 100) / 100;
+                const transCost = Math.round(kwh * 1.4074 * 100) / 100;
+                const sysLossCost = Math.round(kwh * 0.7994 * 100) / 100;
+                let distRate = 2.0941;
+                if (kwh <= 200) distRate = 0.9803;
+                else if (kwh <= 300) distRate = 1.2908;
+                else if (kwh <= 400) distRate = 1.5837;
+                const distCost = Math.round(kwh * distRate * 100) / 100;
+                const meteringCost = kwh === 0 ? 0 : Math.round(kwh * 0.3350 * 100) / 100 + 5.0;
+                const supplyCost = kwh === 0 ? 0 : Math.round(kwh * 0.4979 * 100) / 100 + 16.38;
+                const awatRefund = Math.round(kwh * -0.4278 * 100) / 100;
+                const regReset = Math.round(kwh * -0.0023 * 100) / 100;
+                const seniorCost = Math.round(kwh * 0.0001 * 100) / 100;
+
+                const genVat = Math.round(genCost * 0.0941 * 100) / 100;
+                const transVat = Math.round(transCost * 0.1126 * 100) / 100;
+                const sysLossVat = Math.round(sysLossCost * 0.0966 * 100) / 100;
+                const distTotal = distCost + meteringCost + supplyCost + awatRefund + regReset;
+                const distVat = Math.round(distTotal * 0.1200 * 100) / 100;
+                const seniorVat = Math.round(seniorCost * 0.1200 * 100) / 100;
+                const totalVat = genVat + transVat + sysLossVat + distVat + seniorVat;
+
+                const rptCost = Math.round(kwh * 0.0062 * 100) / 100;
+                const lftBase = genCost + transCost + sysLossCost + distTotal + seniorCost + rptCost;
+                const lftCost = Math.round(lftBase * 0.0050 * 100) / 100;
+                const govTaxesTotal = rptCost + lftCost + totalVat;
+
+                const nonVatSubsidiesTotal = Math.round(kwh * (0.3216 + 0.2011 + 0.0100) * 100) / 100;
+                const energyAmount = genCost + transCost + sysLossCost + distTotal + seniorCost + govTaxesTotal + nonVatSubsidiesTotal;
+                const totalBill = energyAmount + other;
+
+                return {
+                    success: true,
+                    input: { kwh, generation_rate: genRate, other_charges: other },
+                    summary: {
+                        total_bill: Math.round(totalBill * 100) / 100,
+                        energy_cost: Math.round(energyAmount * 100) / 100,
+                        other_charges: other
+                    },
+                    itemized: {
+                        generation_charge: genCost,
+                        transmission_charge: transCost,
+                        system_loss_charge: sys_loss_cost,
+                        distribution_charge: distCost,
+                        metering_supply_charge: Math.round((meteringCost + supplyCost) * 100) / 100,
+                        subsidies_and_refunds: Math.round((awatRefund + regReset + seniorCost) * 100) / 100,
+                        government_taxes_and_vat: Math.round(govTaxesTotal * 100) / 100,
+                        universal_charges_and_fitall: Math.round(nonVatSubsidiesTotal * 100) / 100
+                    }
+                };
+            };
+
+            try {
+                const url = `api/calculate.py?kwh=${kwh}&gen_rate=${genRate}&other=${other}`;
+                const result = await safeFetchJson(url, null, calculateLocal);
+                status.textContent = `Status: ${result.status} OK`;
+                output.textContent = JSON.stringify(result.data, null, 2);
+            } catch (err) {
+                status.textContent = 'Status: Error';
+                output.textContent = JSON.stringify({ error: err.message }, null, 2);
+            }
+        }
+    </script>
+</body>
+</html>
