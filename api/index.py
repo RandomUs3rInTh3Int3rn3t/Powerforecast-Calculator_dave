@@ -37,8 +37,10 @@ class handler(BaseHTTPRequestHandler):
             other = float(params.get('other', [0])[0])
             self.handle_calculate(kwh, gen_rate, other)
         else:
-            # Default fallback for /api or unknown route
-            self.handle_rates()
+            self.send_response(404)
+            self._send_cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": "API endpoint not found. Valid endpoints: /api/rates, /api/appliances, /api/calculate"}).encode('utf-8'))
 
     def do_POST(self):
         parsed = urlparse(self.path)
@@ -60,7 +62,7 @@ class handler(BaseHTTPRequestHandler):
             self.send_response(404)
             self._send_cors_headers()
             self.end_headers()
-            self.wfile.write(json.dumps({"error": "Endpoint not found"}).encode('utf-8'))
+            self.wfile.write(json.dumps({"error": "API endpoint not found"}).encode('utf-8'))
 
     def handle_rates(self):
         self.send_response(200)
