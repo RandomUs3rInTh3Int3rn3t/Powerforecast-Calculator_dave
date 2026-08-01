@@ -14,9 +14,9 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/rates", "destination": "/api/rates.py" },
-    { "source": "/api/appliances", "destination": "/api/appliances.py" },
-    { "source": "/api/calculate", "destination": "/api/calculate.py" },
+    { "source": "/api/rates", "destination": "/api/index.py" },
+    { "source": "/api/appliances", "destination": "/api/index.py" },
+    { "source": "/api/calculate", "destination": "/api/index.py" },
     { "source": "/docs", "destination": "/docs.html" }
   ]
 }
