@@ -1,200 +1,355 @@
 {
+  "categories": [
+    "Cooling",
+    "Refrigeration",
+    "Entertainment",
+    "Computers",
+    "Laundry",
+    "Kitchen",
+    "Lighting",
+    "Gadgets",
+    "Water & Heating"
+  ],
   "appliances": [
     {
+      "id": "ac-05-noninverter",
       "name": "Air Conditioner (0.5 HP, Non-Inverter)",
       "category": "Cooling",
       "average_wattage": 550,
       "wattage_range": "500W - 600W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Small window-type AC for small rooms. High consumption if used long hours."
     },
     {
+      "id": "ac-05-inverter",
       "name": "Air Conditioner (0.5 HP, Inverter)",
       "category": "Cooling",
       "average_wattage": 380,
       "wattage_range": "300W - 450W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Energy-efficient window AC for small rooms."
     },
     {
+      "id": "ac-10-noninverter",
       "name": "Air Conditioner (1.0 HP, Non-Inverter)",
       "category": "Cooling",
       "average_wattage": 980,
       "wattage_range": "900W - 1100W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Standard window AC for medium rooms."
     },
     {
+      "id": "ac-10-inverter",
       "name": "Air Conditioner (1.0 HP, Inverter)",
       "category": "Cooling",
       "average_wattage": 680,
       "wattage_range": "500W - 800W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Inverter split/window AC for medium rooms. Highly energy efficient."
     },
     {
+      "id": "ac-15-noninverter",
       "name": "Air Conditioner (1.5 HP, Non-Inverter)",
       "category": "Cooling",
       "average_wattage": 1420,
       "wattage_range": "1300W - 1600W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Standard split or window AC for large rooms."
     },
     {
+      "id": "ac-15-inverter",
       "name": "Air Conditioner (1.5 HP, Inverter)",
       "category": "Cooling",
       "average_wattage": 950,
       "wattage_range": "700W - 1200W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Inverter split/window AC for large rooms. Consumes less once target temp is hit."
     },
     {
+      "id": "ac-20-inverter",
       "name": "Air Conditioner (2.0 HP, Inverter)",
       "category": "Cooling",
       "average_wattage": 1400,
       "wattage_range": "1100W - 1800W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Large split-type inverter AC for living rooms or large bedrooms."
     },
     {
-      "name": "Refrigerator (Two-Door, Non-Inverter, 7-10 cu ft)",
-      "category": "Refrigeration",
-      "average_wattage": 150,
-      "wattage_range": "130W - 180W",
-      "description": "Standard household refrigerator. Runs periodically (compressor duty cycle approx. 50%)."
-    },
-    {
-      "name": "Refrigerator (Two-Door, Inverter, 7-10 cu ft)",
-      "category": "Refrigeration",
-      "average_wattage": 90,
-      "wattage_range": "70W - 120W",
-      "description": "Inverter refrigerator. Compressor runs continuously at lower speeds, saving energy."
-    },
-    {
-      "name": "Refrigerator (Single Door, Small, 5-6 cu ft)",
-      "category": "Refrigeration",
-      "average_wattage": 100,
-      "wattage_range": "80W - 120W",
-      "description": "Standard single-door ref. Compressor cycle varies based on opening frequency."
-    },
-    {
+      "id": "fan-stand-16in",
       "name": "Stand Fan / Desk Fan (16 inch)",
       "category": "Cooling",
       "average_wattage": 55,
       "wattage_range": "50W - 75W",
+      "default_hours_per_day": 12,
+      "default_days_per_month": 30,
       "description": "Common household electric fan. Very low consumption."
     },
     {
+      "id": "fan-ceiling",
       "name": "Ceiling Fan",
       "category": "Cooling",
       "average_wattage": 75,
       "wattage_range": "60W - 100W",
+      "default_hours_per_day": 10,
+      "default_days_per_month": 30,
       "description": "Standard ceiling fan on medium-high speed."
     },
     {
+      "id": "fan-orbit-wall",
+      "name": "Orbit / Wall Fan",
+      "category": "Cooling",
+      "average_wattage": 60,
+      "wattage_range": "50W - 80W",
+      "default_hours_per_day": 10,
+      "default_days_per_month": 30,
+      "description": "360-degree orbit or wall-mounted circulation fan."
+    },
+    {
+      "id": "ref-twodoor-noninverter",
+      "name": "Refrigerator (Two-Door, Non-Inverter, 7-10 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 150,
+      "wattage_range": "130W - 180W",
+      "default_hours_per_day": 24,
+      "default_days_per_month": 30,
+      "description": "Standard household refrigerator. Compressor duty cycle approx. 50%."
+    },
+    {
+      "id": "ref-twodoor-inverter",
+      "name": "Refrigerator (Two-Door, Inverter, 7-10 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 90,
+      "wattage_range": "70W - 120W",
+      "default_hours_per_day": 24,
+      "default_days_per_month": 30,
+      "description": "Inverter refrigerator. Compressor runs continuously at lower speeds, saving energy."
+    },
+    {
+      "id": "ref-singledoor",
+      "name": "Refrigerator (Single Door, Small, 5-6 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 100,
+      "wattage_range": "80W - 120W",
+      "default_hours_per_day": 24,
+      "default_days_per_month": 30,
+      "description": "Standard single-door ref. Compressor cycle varies based on opening frequency."
+    },
+    {
+      "id": "ref-chest-freezer",
+      "name": "Chest Freezer (Inverter, 7 cu ft)",
+      "category": "Refrigeration",
+      "average_wattage": 120,
+      "wattage_range": "90W - 160W",
+      "default_hours_per_day": 24,
+      "default_days_per_month": 30,
+      "description": "Deep freeze storage for commercial or home food preservation."
+    },
+    {
+      "id": "tv-led-32",
       "name": "LED TV (32 inch)",
       "category": "Entertainment",
       "average_wattage": 45,
       "wattage_range": "35W - 60W",
+      "default_hours_per_day": 5,
+      "default_days_per_month": 30,
       "description": "Standard LED television."
     },
     {
+      "id": "tv-smart-55",
       "name": "LED Smart TV (50-55 inch)",
       "category": "Entertainment",
       "average_wattage": 110,
       "wattage_range": "90W - 150W",
+      "default_hours_per_day": 5,
+      "default_days_per_month": 30,
       "description": "Large smart TV screen with 4K resolution."
     },
     {
+      "id": "audio-soundbar",
+      "name": "Soundbar / Home Theater System",
+      "category": "Entertainment",
+      "average_wattage": 60,
+      "wattage_range": "30W - 120W",
+      "default_hours_per_day": 4,
+      "default_days_per_month": 30,
+      "description": "External speaker bar or multi-channel audio receiver."
+    },
+    {
+      "id": "pc-gaming",
       "name": "Gaming PC (Desktop)",
       "category": "Computers",
       "average_wattage": 350,
       "wattage_range": "200W - 600W",
-      "description": "Desktop computer with dedicated graphics card. Wattage depends on CPU/GPU load."
+      "default_hours_per_day": 6,
+      "default_days_per_month": 30,
+      "description": "Desktop computer with dedicated graphics card. Wattage depends on load."
     },
     {
+      "id": "laptop-office",
       "name": "Laptop (Standard Office/Student)",
       "category": "Computers",
       "average_wattage": 45,
       "wattage_range": "30W - 65W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 26,
       "description": "Standard thin-and-light laptop for productivity or online classes."
     },
     {
+      "id": "router-wifi",
+      "name": "Wi-Fi Router / Modem",
+      "category": "Computers",
+      "average_wattage": 12,
+      "wattage_range": "8W - 18W",
+      "default_hours_per_day": 24,
+      "default_days_per_month": 30,
+      "description": "Fiber modem or wireless router running continuously."
+    },
+    {
+      "id": "wash-singletub",
       "name": "Washing Machine (Single Tub, Standard)",
       "category": "Laundry",
       "average_wattage": 250,
       "wattage_range": "200W - 350W",
+      "default_hours_per_day": 1,
+      "default_days_per_month": 12,
       "description": "Simple top-load washing machine without spin dryer."
     },
     {
+      "id": "wash-twintub",
       "name": "Washing Machine (Twin Tub, with Spinner)",
       "category": "Laundry",
       "average_wattage": 400,
       "wattage_range": "300W - 500W",
+      "default_hours_per_day": 1.5,
+      "default_days_per_month": 12,
       "description": "Washing tub + spin dryer running together."
     },
     {
+      "id": "wash-frontload",
       "name": "Washing Machine (Front Load, Automatic)",
       "category": "Laundry",
       "average_wattage": 800,
       "wattage_range": "500W - 2000W",
+      "default_hours_per_day": 1.5,
+      "default_days_per_month": 12,
       "description": "Automatic washing machine. Higher wattage if water heater is active."
     },
     {
+      "id": "flat-iron",
       "name": "Flat Iron",
       "category": "Laundry",
       "average_wattage": 1000,
       "wattage_range": "900W - 1200W",
-      "description": "Standard clothing iron. High wattage, but typically used for short intervals."
+      "default_hours_per_day": 1,
+      "default_days_per_month": 8,
+      "description": "Standard clothing iron. High wattage, used for short intervals."
     },
     {
+      "id": "rice-cooker",
       "name": "Rice Cooker (Standard, 1.8 Liters)",
       "category": "Kitchen",
       "average_wattage": 700,
       "wattage_range": "600W - 800W",
+      "default_hours_per_day": 1,
+      "default_days_per_month": 30,
       "description": "Consumes 700W when cooking, drops to 50W - 80W in 'Keep Warm' mode."
     },
     {
+      "id": "microwave",
       "name": "Microwave Oven",
       "category": "Kitchen",
       "average_wattage": 1200,
       "wattage_range": "1000W - 1500W",
-      "description": "High power draw, but usually runs for only a few minutes per use."
+      "default_hours_per_day": 0.5,
+      "default_days_per_month": 30,
+      "description": "High power draw, but runs for only a few minutes per use."
     },
     {
+      "id": "induction-cooker",
       "name": "Induction Cooker",
       "category": "Kitchen",
       "average_wattage": 1500,
       "wattage_range": "1000W - 2000W",
-      "description": "Single-burner induction stove. Consumption varies by power level setting."
+      "default_hours_per_day": 1.5,
+      "default_days_per_month": 30,
+      "description": "Single-burner induction stove. Consumption varies by power setting."
     },
     {
+      "id": "electric-kettle",
       "name": "Electric Kettle",
       "category": "Kitchen",
       "average_wattage": 1500,
       "wattage_range": "1200W - 2000W",
-      "description": "Very high power, but only runs for 3-5 minutes to boil water."
+      "default_hours_per_day": 0.25,
+      "default_days_per_month": 30,
+      "description": "Very high power, runs 3-5 minutes per boil."
     },
     {
+      "id": "air-fryer",
+      "name": "Air Fryer (Standard 4L)",
+      "category": "Kitchen",
+      "average_wattage": 1400,
+      "wattage_range": "1200W - 1600W",
+      "default_hours_per_day": 0.5,
+      "default_days_per_month": 15,
+      "description": "Compact convection oven for oil-free frying and baking."
+    },
+    {
+      "id": "water-dispenser",
       "name": "Water Dispenser (Hot and Cold)",
       "category": "Kitchen",
       "average_wattage": 550,
       "wattage_range": "400W - 600W",
-      "description": "Dispenser that heats and cools water periodically. High monthly consumption if left on 24/7."
+      "default_hours_per_day": 24,
+      "default_days_per_month": 30,
+      "description": "Dispenser that heats and cools water periodically."
     },
     {
+      "id": "led-bulb",
       "name": "LED Bulb",
       "category": "Lighting",
       "average_wattage": 9,
       "wattage_range": "5W - 15W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Energy-efficient home lighting bulb."
     },
     {
+      "id": "fluorescent-tube",
       "name": "Fluorescent Tube (T8, 36W)",
       "category": "Lighting",
       "average_wattage": 45,
       "wattage_range": "40W - 50W",
+      "default_hours_per_day": 8,
+      "default_days_per_month": 30,
       "description": "Older long tube light. Ballast adds around 9W of consumption."
     },
     {
+      "id": "phone-charger",
       "name": "Phone / Tablet Charger",
       "category": "Gadgets",
       "average_wattage": 15,
       "wattage_range": "5W - 65W",
+      "default_hours_per_day": 3,
+      "default_days_per_month": 30,
       "description": "Fast charger or standard mobile device charger."
+    },
+    {
+      "id": "water-heater-instant",
+      "name": "Instant Shower Water Heater",
+      "category": "Water & Heating",
+      "average_wattage": 3500,
+      "wattage_range": "3000W - 4500W",
+      "default_hours_per_day": 0.5,
+      "default_days_per_month": 30,
+      "description": "High-wattage tankless electric shower heater."
     }
   ]
 }

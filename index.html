@@ -182,6 +182,99 @@
                 </div>
             </div>
 
+            <!-- Appliance Library & Energy Estimator Card -->
+            <div class="glass p-6 rounded-2xl shadow-xl flex flex-col gap-5">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-base font-semibold text-slate-100 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-5 h-5 text-meralco-400">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                            </svg>
+                            Appliance Energy Estimator
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">Select an appliance catalog item to estimate monthly kWh consumption.</p>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 bg-meralco-500/20 text-meralco-400 border border-meralco-500/30 rounded-full uppercase">Meralco Catalog</span>
+                </div>
+
+                <!-- Category Filter Selector -->
+                <div class="flex flex-col gap-1.5">
+                    <label for="applianceCategorySelect" class="text-xs font-medium text-slate-300">Category Filter</label>
+                    <select id="applianceCategorySelect" onchange="filterApplianceCategory()" class="w-full bg-slate-900 border border-slate-800 focus:border-meralco-500 rounded-xl px-3 py-2 text-sm text-slate-200 outline-none">
+                        <option value="ALL">All Categories</option>
+                    </select>
+                </div>
+
+                <!-- Appliance Selector -->
+                <div class="flex flex-col gap-1.5">
+                    <label for="applianceSelect" class="text-xs font-medium text-slate-300">Select Appliance</label>
+                    <select id="applianceSelect" onchange="onApplianceSelected()" class="w-full bg-slate-900 border border-slate-800 focus:border-meralco-500 rounded-xl px-3 py-2 text-sm font-medium text-white outline-none">
+                        <option value="">-- Choose an appliance --</option>
+                    </select>
+                </div>
+
+                <!-- Appliance Specs Inputs -->
+                <div id="applianceSpecsPanel" class="flex flex-col gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800/80">
+                    <!-- Power Rating (Wattage) -->
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-slate-400 font-medium">Standard Wattage</span>
+                        <div class="flex items-center gap-1">
+                            <input type="number" id="applianceWattsInput" value="0" min="1" step="1" oninput="updateApplianceKwhCalculation()" class="w-20 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-right font-bold text-slate-100 text-xs outline-none focus:border-meralco-500">
+                            <span class="text-slate-400">Watts</span>
+                        </div>
+                    </div>
+
+                    <!-- Daily Operating Hours -->
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-400 font-medium">Hours per Day</span>
+                            <span class="text-meralco-400 font-bold"><span id="lblApplianceHours">8</span> hrs/day</span>
+                        </div>
+                        <input type="range" id="applianceHoursSlider" min="0.1" max="24" step="0.5" value="8" oninput="document.getElementById('lblApplianceHours').textContent = this.value; updateApplianceKwhCalculation()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-meralco-500">
+                    </div>
+
+                    <!-- Monthly Operating Days -->
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-slate-400 font-medium">Days per Month</span>
+                            <span class="text-meralco-400 font-bold"><span id="lblApplianceDays">30</span> days/mo</span>
+                        </div>
+                        <input type="range" id="applianceDaysSlider" min="1" max="30" step="1" value="30" oninput="document.getElementById('lblApplianceDays').textContent = this.value; updateApplianceKwhCalculation()" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-meralco-500">
+                    </div>
+
+                    <!-- Estimated kWh Output Badge -->
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Estimated Monthly Energy</span>
+                        <div class="text-right">
+                            <span class="text-lg font-extrabold text-white" id="applianceEstKwh">0.00</span>
+                            <span class="text-xs text-meralco-400 font-bold ml-1">kWh / mo</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="applyApplianceAsKwh()" class="flex-1 py-2 bg-meralco-500 hover:bg-meralco-600 rounded-lg text-xs font-semibold text-white transition-all shadow-md shadow-meralco-500/20">
+                            Set as Bill kWh
+                        </button>
+                        <button onclick="addApplianceToLoadList()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-semibold text-slate-200 hover:text-white transition-all">
+                            + Add to Load List
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Added Household Load List -->
+                <div id="householdLoadPanel" class="flex flex-col gap-2.5">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Household Load List</span>
+                        <span class="text-xs font-bold text-meralco-400" id="totalLoadKwh">0.00 kWh</span>
+                    </div>
+                    <div id="householdLoadItems" class="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
+                        <p class="text-xs text-slate-500 italic">No appliances added to household list yet.</p>
+                    </div>
+                </div>
+            </div>
+
             <!-- Helpful Tips -->
             <div class="bg-gradient-to-r from-meralco-500/10 to-transparent border border-meralco-500/20 p-4 rounded-2xl flex gap-3.5 items-start">
                 <div class="text-meralco-400 mt-0.5">
@@ -874,9 +967,180 @@
             document.getElementById('pctOthers').textContent = pctOthers.toFixed(0) + '%';
         }
 
+        // Appliance Catalog & Household Load State
+        let applianceCatalog = [];
+        let householdLoadList = [];
+
+        async function fetchApplianceCatalog() {
+            try {
+                let response = await fetch('/api/appliances');
+                if (!response.ok) {
+                    response = await fetch('appliance_db.json');
+                }
+                if (response.ok) {
+                    const data = await response.json();
+                    applianceCatalog = data.appliances || [];
+                    populateCategoryFilter(data.categories);
+                    populateApplianceDropdown();
+                }
+            } catch (err) {
+                console.warn("Failed to fetch appliance catalog:", err);
+            }
+        }
+
+        function populateCategoryFilter(categories) {
+            const catSelect = document.getElementById('applianceCategorySelect');
+            if (!catSelect) return;
+            catSelect.innerHTML = '<option value="ALL">All Categories</option>';
+
+            const catList = categories || [...new Set(applianceCatalog.map(a => a.category))];
+            catList.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                catSelect.appendChild(opt);
+            });
+        }
+
+        function filterApplianceCategory() {
+            populateApplianceDropdown();
+        }
+
+        function populateApplianceDropdown() {
+            const catSelect = document.getElementById('applianceCategorySelect');
+            const appSelect = document.getElementById('applianceSelect');
+            if (!appSelect) return;
+
+            const selectedCat = catSelect ? catSelect.value : 'ALL';
+            appSelect.innerHTML = '<option value="">-- Choose an appliance --</option>';
+
+            const filtered = selectedCat === 'ALL' 
+                ? applianceCatalog 
+                : applianceCatalog.filter(a => a.category === selectedCat);
+
+            filtered.forEach(app => {
+                const opt = document.createElement('option');
+                opt.value = app.id || app.name;
+                opt.textContent = `${app.name} (${app.average_wattage}W)`;
+                opt.dataset.wattage = app.average_wattage;
+                opt.dataset.hours = app.default_hours_per_day || 8;
+                opt.dataset.days = app.default_days_per_month || 30;
+                appSelect.appendChild(opt);
+            });
+
+            if (filtered.length > 0) {
+                appSelect.selectedIndex = 1;
+                onApplianceSelected();
+            } else {
+                updateApplianceKwhCalculation();
+            }
+        }
+
+        function onApplianceSelected() {
+            const appSelect = document.getElementById('applianceSelect');
+            if (!appSelect || appSelect.selectedIndex <= 0) return;
+
+            const opt = appSelect.options[appSelect.selectedIndex];
+            const wattage = parseFloat(opt.dataset.wattage) || 0;
+            const hours = parseFloat(opt.dataset.hours) || 8;
+            const days = parseFloat(opt.dataset.days) || 30;
+
+            document.getElementById('applianceWattsInput').value = wattage;
+            document.getElementById('applianceHoursSlider').value = hours;
+            document.getElementById('lblApplianceHours').textContent = hours;
+            document.getElementById('applianceDaysSlider').value = days;
+            document.getElementById('lblApplianceDays').textContent = days;
+
+            updateApplianceKwhCalculation();
+        }
+
+        function updateApplianceKwhCalculation() {
+            const watts = parseFloat(document.getElementById('applianceWattsInput').value) || 0;
+            const hours = parseFloat(document.getElementById('applianceHoursSlider').value) || 0;
+            const days = parseFloat(document.getElementById('applianceDaysSlider').value) || 0;
+
+            const estKwh = (watts * hours * days) / 1000;
+            document.getElementById('applianceEstKwh').textContent = estKwh.toFixed(2);
+            return estKwh;
+        }
+
+        function applyApplianceAsKwh() {
+            const estKwh = updateApplianceKwhCalculation();
+            syncKwhInput(Math.round(estKwh));
+        }
+
+        function addApplianceToLoadList() {
+            const appSelect = document.getElementById('applianceSelect');
+            if (!appSelect || appSelect.selectedIndex <= 0) {
+                alert("Please select an appliance first.");
+                return;
+            }
+
+            const appName = appSelect.options[appSelect.selectedIndex].text.split(' (')[0];
+            const watts = parseFloat(document.getElementById('applianceWattsInput').value) || 0;
+            const hours = parseFloat(document.getElementById('applianceHoursSlider').value) || 0;
+            const days = parseFloat(document.getElementById('applianceDaysSlider').value) || 0;
+
+            const kwh = (watts * hours * days) / 1000;
+
+            householdLoadList.push({
+                id: Date.now(),
+                name: appName,
+                watts: watts,
+                hours: hours,
+                days: days,
+                kwh: kwh
+            });
+
+            renderHouseholdLoadList();
+        }
+
+        function removeHouseholdLoadItem(id) {
+            householdLoadList = householdLoadList.filter(item => item.id !== id);
+            renderHouseholdLoadList();
+        }
+
+        function renderHouseholdLoadList() {
+            const container = document.getElementById('householdLoadItems');
+            const totalLbl = document.getElementById('totalLoadKwh');
+            if (!container) return;
+
+            if (householdLoadList.length === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-500 italic">No appliances added to household list yet.</p>';
+                if (totalLbl) totalLbl.textContent = '0.00 kWh';
+                return;
+            }
+
+            let totalKwh = 0;
+            container.innerHTML = '';
+
+            householdLoadList.forEach(item => {
+                totalKwh += item.kwh;
+                const div = document.createElement('div');
+                div.className = 'flex justify-between items-center bg-slate-900/90 border border-slate-800/80 p-2 rounded-lg text-xs';
+                div.innerHTML = `
+                    <div class="flex flex-col">
+                        <span class="font-medium text-slate-200">${item.name}</span>
+                        <span class="text-[10px] text-slate-500">${item.watts}W • ${item.hours}h/day • ${item.days}d/mo</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-meralco-400">${item.kwh.toFixed(1)} kWh</span>
+                        <button onclick="removeHouseholdLoadItem(${item.id})" class="text-slate-500 hover:text-red-400 p-1">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            if (totalLbl) totalLbl.textContent = totalKwh.toFixed(2) + ' kWh';
+            syncKwhInput(Math.round(totalKwh));
+        }
+
         // Run on Startup
         initRates();
         fetchRates();
+        fetchApplianceCatalog();
         calculateBill();
     </script>
 </body>
